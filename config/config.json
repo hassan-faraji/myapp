@@ -1,0 +1,78 @@
+{
+    "log": {
+      "access": "/var/log/v2ray/access.log",
+      "error": "/var/log/v2ray/error.log",
+      "loglevel": "warning"
+    },
+    "inbounds": [
+      {
+        "port": 16723,
+        "protocol": "vmess",
+        "settings": {
+          "clients": [
+            {
+              "id": "3277c78a-a83d-4d89-ba5c-9601afa0cdb9",
+              "alterId": 10,
+              "security": "auto"
+            }
+          ]
+        },
+        "streamSettings":{
+            "network":"tcp"
+          }
+      }
+    ],
+    "outbound": {
+            "protocol": "vmess",
+            "settings": {
+            "vnext": [
+                {
+                    "address": "195.201.131.46",
+                    "port": 16723,
+                    "users": [
+                        {
+                        "id": "f32a1871-3164-4f44-b6f8-631a22f34eb8",
+                        "alterId": 10,
+                        "security": "none"
+                        }
+                    ]
+                }
+            ]
+            },
+            "streamSettings": {
+                "network": "ws"
+            },
+            "mux": {
+                "enabled": true
+            }
+      },
+    "dns":{
+	"server" : [
+		"1.1.1.1"
+	]
+    },
+    "routing": {
+      "strategy": "rules",
+      "settings": {
+        "rules": [
+          {
+            "type": "field",
+            "outboundTag": "freedom",
+            "domain": [
+              "regexp:.*\\.ir$"
+            ],
+            "ip": [
+              "geoip:ir"
+            ]
+          },
+          {
+            "type": "field",
+            "outboundTag": "blackhole",
+            "ip": [
+              "geoip:private"
+            ]
+          }
+        ]
+      }
+    }
+  }
